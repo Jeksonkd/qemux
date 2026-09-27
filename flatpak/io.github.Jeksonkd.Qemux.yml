@@ -41,16 +41,8 @@ modules:
       - install -Dm0644 flatpak/io.github.Jeksonkd.Qemux.metainfo.xml /app/share/metainfo/io.github.Jeksonkd.Qemux.metainfo.xml
       - install -Dm0644 flatpak/io.github.Jeksonkd.Qemux.svg /app/share/icons/hicolor/scalable/apps/io.github.Jeksonkd.Qemux.svg
     sources:
-      # NOTE: for local testing this builds straight from the working
-      # directory. Before submitting to Flathub, replace this with a
-      # `type: git` source pointing at a tagged commit on a public
-      # GitHub repo, e.g.:
-      #   - type: git
-      #     url: https://github.com/Jeksonkd/qemux.git
-      #     tag: v0.1.0
-      - type: dir
-        path: ..
-        skip:
-          - target
-          - .git
+      - type: git
+        url: https://github.com/Jeksonkd/qemux.git
+        tag: v0.1.1
+        commit: 9e6cc22538fbb14288fac1ca567614bd8d349455
       - cargo-sources.json
