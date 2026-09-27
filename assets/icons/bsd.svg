@@ -1,16 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
-  <polygon points="330,300 400,430 300,470" fill="#c1272d"/>
-  <polygon points="694,300 624,430 724,470" fill="#c1272d"/>
-  <ellipse cx="512" cy="560" rx="270" ry="250" fill="#c1272d"/>
-  <ellipse cx="415" cy="520" rx="60" ry="76" fill="#f5f3ef"/>
-  <ellipse cx="609" cy="520" rx="60" ry="76" fill="#f5f3ef"/>
-  <circle cx="415" cy="536" r="24" fill="#161616"/>
-  <circle cx="609" cy="536" r="24" fill="#161616"/>
-  <polygon points="446,690 486,760 526,690" fill="#f5f3ef"/>
-  <polygon points="498,690 538,760 578,690" fill="#f5f3ef"/>
-  <path d="M 512 300 L 512 140" stroke="#c1272d" stroke-width="26" stroke-linecap="round"/>
-  <path d="M 512 150 L 440 90" stroke="#c1272d" stroke-width="22" stroke-linecap="round"/>
-  <path d="M 512 150 L 584 90" stroke="#c1272d" stroke-width="22" stroke-linecap="round"/>
-  <path d="M 512 210 L 460 165" stroke="#c1272d" stroke-width="22" stroke-linecap="round"/>
-  <path d="M 512 210 L 564 165" stroke="#c1272d" stroke-width="22" stroke-linecap="round"/>
+  <defs>
+    <radialGradient id="sphere" cx="35%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#ff7a54"/>
+      <stop offset="45%" stop-color="#e2402a"/>
+      <stop offset="100%" stop-color="#8a1d10"/>
+    </radialGradient>
+    <linearGradient id="hornL" x1="10%" y1="0%" x2="90%" y2="100%">
+      <stop offset="0%" stop-color="#ff8a63"/>
+      <stop offset="100%" stop-color="#7a1a0e"/>
+    </linearGradient>
+    <linearGradient id="hornR" x1="90%" y1="0%" x2="10%" y2="100%">
+      <stop offset="0%" stop-color="#ff8a63"/>
+      <stop offset="100%" stop-color="#7a1a0e"/>
+    </linearGradient>
+  </defs>
+
+  <path d="M 370 345 C 330 300 300 220 300 130 C 340 190 380 260 415 335 Z" fill="url(#hornL)"/>
+  <path d="M 654 345 C 694 300 724 220 724 130 C 684 190 644 260 609 335 Z" fill="url(#hornR)"/>
+
+  <circle cx="512" cy="560" r="280" fill="url(#sphere)"/>
+
+  <ellipse cx="415" cy="455" rx="95" ry="62" fill="#ffffff" opacity="0.22"/>
+  <ellipse cx="610" cy="690" rx="130" ry="78" fill="#000000" opacity="0.20"/>
 </svg>
