@@ -13,7 +13,7 @@ use std::collections::HashMap;
 use std::path::PathBuf;
 use std::rc::Rc;
 
-const APP_ID: &str = "com.jd.qemux";
+const APP_ID: &str = "io.github.Jeksonkd.Qemux";
 const APP_TITLE: &str = "Qemux";
 
 fn alert(window: &gtk::Window, message: &str, detail: &str) {

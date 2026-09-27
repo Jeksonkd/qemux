@@ -180,7 +180,7 @@ pub fn show_vm_dialog(
     let ram_unit_parse = ram_unit.clone();
     let ram_slider = HwSlider::new(
         &format!("RAM ({unit_label})"),
-        256.0,
+        8.0,
         ram_max,
         ram0,
         256.0,
