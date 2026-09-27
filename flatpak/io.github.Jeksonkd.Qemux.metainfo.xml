@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.Jeksonkd.Qemux</id>
+  <name>Qemux</name>
+  <summary>Create and launch QEMU virtual machines</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+  <description>
+    <p>
+      Qemux is a lightweight manager for QEMU virtual machines. Create a VM
+      from an ISO with a few sliders for CPU, RAM and storage, launch it with
+      a click, and manage the underlying virtual disks — including reusing
+      one already sitting on disk instead of creating a new one.
+    </p>
+    <p>Features:</p>
+    <ul>
+      <li>Create, edit, launch and delete QEMU virtual machines</li>
+      <li>CPU, RAM and storage sliders with typeable exact values</li>
+      <li>Automatic OS icon detection from the chosen ISO's file name</li>
+      <li>A virtual disk browser showing which disks are in use</li>
+      <li>Reuse an existing unused disk instead of creating a new one</li>
+      <li>Keyboard shortcuts: Space to launch, E to edit, Delete to remove</li>
+    </ul>
+  </description>
+  <launchable type="desktop-id">io.github.Jeksonkd.Qemux.desktop</launchable>
+  <content_rating type="oars-1.1"/>
+  <categories>
+    <category>System</category>
+    <category>Utility</category>
+  </categories>
+  <releases>
+    <release version="0.1.0" date="2026-09-27">
+      <description>
+        <p>First release.</p>
+      </description>
+    </release>
+  </releases>
+</component>

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Qemux
+Comment=Create and launch QEMU virtual machines
+Exec=qemux
+Icon=io.github.Jeksonkd.Qemux
+Terminal=false
+Categories=System;Utility;

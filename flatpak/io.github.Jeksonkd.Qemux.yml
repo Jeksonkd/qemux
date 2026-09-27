@@ -1,0 +1,56 @@
+app-id: io.github.Jeksonkd.Qemux
+runtime: org.gnome.Platform
+runtime-version: "49"
+sdk: org.gnome.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.rust-stable
+command: qemux
+
+finish-args:
+  - --socket=wayland
+  - --socket=fallback-x11
+  # GtkApplication registers a D-Bus name for itself on startup; without
+  # this it fails immediately with "Failed to register: ServiceUnknown".
+  - --socket=session-bus
+  - --share=ipc
+  - --device=dri
+  - --device=kvm
+  # Qemux itself only reads/writes ~/vms and whatever ISO the user picks
+  # (that pick goes through the portal-backed file chooser). Broad home
+  # access is needed because ISOs and the VM store can live anywhere
+  # under $HOME, and because the host qemu process below needs the same
+  # real paths Qemux sees.
+  - --filesystem=home
+  # qemu-system-x86_64/qemu-img aren't in the sandboxed runtime; Qemux
+  # runs them on the host via `flatpak-spawn --host`.
+  - --talk-name=org.freedesktop.Flatpak
+
+modules:
+  - name: qemux
+    buildsystem: simple
+    build-options:
+      append-path: /usr/lib/sdk/rust-stable/bin
+      env:
+        CARGO_HOME: /run/build/qemux/cargo
+        CARGO_NET_OFFLINE: "true"
+    build-commands:
+      - install -Dm0644 cargo/config .cargo/config.toml
+      - cargo --offline build --release
+      - install -Dm0755 target/release/qemux /app/bin/qemux
+      - install -Dm0644 flatpak/io.github.Jeksonkd.Qemux.desktop /app/share/applications/io.github.Jeksonkd.Qemux.desktop
+      - install -Dm0644 flatpak/io.github.Jeksonkd.Qemux.metainfo.xml /app/share/metainfo/io.github.Jeksonkd.Qemux.metainfo.xml
+      - install -Dm0644 flatpak/io.github.Jeksonkd.Qemux.svg /app/share/icons/hicolor/scalable/apps/io.github.Jeksonkd.Qemux.svg
+    sources:
+      # NOTE: for local testing this builds straight from the working
+      # directory. Before submitting to Flathub, replace this with a
+      # `type: git` source pointing at a tagged commit on a public
+      # GitHub repo, e.g.:
+      #   - type: git
+      #     url: https://github.com/Jeksonkd/qemux.git
+      #     tag: v0.1.0
+      - type: dir
+        path: ..
+        skip:
+          - target
+          - .git
+      - cargo-sources.json

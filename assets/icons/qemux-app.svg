@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <!-- host machine -->
+  <rect x="56" y="130" width="912" height="626" rx="69" fill="#8b5cf6"/>
+  <rect x="469" y="756" width="86" height="86" fill="#8b5cf6"/>
+  <rect x="339" y="842" width="346" height="52" rx="22" fill="#8b5cf6"/>
+
+  <!-- host's display surface -->
+  <rect x="110" y="184" width="804" height="475" rx="37" fill="#f5f3ff"/>
+
+  <!-- guest machine running inside it -->
+  <rect x="318" y="259" width="389" height="248" rx="28" fill="#5b21b6"/>
+  <rect x="482" y="508" width="60" height="37" fill="#5b21b6"/>
+  <rect x="420" y="544" width="184" height="28" rx="13" fill="#5b21b6"/>
+
+  <!-- launch glyph on the guest's screen -->
+  <path d="M 469 319 L 469 448 L 598 383 Z" fill="#f5f3ff"/>
+</svg>

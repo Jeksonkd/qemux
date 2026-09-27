@@ -1,0 +1,4 @@
+/target
+*.log
+/flatpak/build-dir
+/flatpak/.flatpak-builder
