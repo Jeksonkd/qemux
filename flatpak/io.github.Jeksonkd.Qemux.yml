@@ -43,6 +43,6 @@ modules:
     sources:
       - type: git
         url: https://github.com/Jeksonkd/qemux.git
-        tag: v0.1.1
-        commit: 9e6cc22538fbb14288fac1ca567614bd8d349455
+        tag: v0.1.2
+        commit: d7e7863264ab6e436a5abda4e7adaace1a117575
       - cargo-sources.json
