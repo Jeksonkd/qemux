@@ -1,29 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
-  <ellipse cx="512" cy="645" rx="258" ry="292" fill="#161616"/>
-  <circle cx="512" cy="335" r="198" fill="#161616"/>
+  <circle cx="512" cy="512" r="380" fill="#161616"/>
 
-  <!-- flippers -->
-  <rect x="182" y="560" width="96" height="210" rx="48" fill="#161616"
-        transform="rotate(-30 230 665)"/>
-  <rect x="746" y="560" width="96" height="210" rx="48" fill="#161616"
-        transform="rotate(30 794 665)"/>
+  <ellipse cx="350" cy="440" rx="115" ry="145" fill="#f5f3ef"/>
+  <ellipse cx="674" cy="440" rx="115" ry="145" fill="#f5f3ef"/>
+  <circle cx="350" cy="472" r="44" fill="#161616"/>
+  <circle cx="674" cy="472" r="44" fill="#161616"/>
+  <circle cx="336" cy="456" r="13" fill="#f5f3ef"/>
+  <circle cx="660" cy="456" r="13" fill="#f5f3ef"/>
 
-  <!-- belly -->
-  <ellipse cx="512" cy="700" rx="152" ry="200" fill="#f5f3ef"/>
-
-  <!-- feet -->
-  <polygon points="398,900 456,796 566,796 626,900" fill="#f2a900"/>
-  <ellipse cx="436" cy="892" rx="54" ry="24" fill="#161616"/>
-  <ellipse cx="588" cy="892" rx="54" ry="24" fill="#161616"/>
-
-  <!-- eyes -->
-  <ellipse cx="428" cy="300" rx="62" ry="78" fill="#f5f3ef"/>
-  <ellipse cx="600" cy="300" rx="62" ry="78" fill="#f5f3ef"/>
-  <circle cx="430" cy="318" r="24" fill="#161616"/>
-  <circle cx="602" cy="318" r="24" fill="#161616"/>
-  <circle cx="422" cy="308" r="7" fill="#f5f3ef"/>
-  <circle cx="594" cy="308" r="7" fill="#f5f3ef"/>
-
-  <!-- beak -->
-  <polygon points="512,338 484,402 540,402" fill="#f2a900"/>
+  <polygon points="512,520 462,650 562,650" fill="#f2a900"/>
 </svg>
