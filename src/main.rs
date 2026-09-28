@@ -17,13 +17,16 @@ const APP_ID: &str = "io.github.Jeksonkd.Qemux";
 const APP_TITLE: &str = "Qemux";
 
 fn alert(window: &gtk::Window, message: &str, detail: &str) {
-    let dialog = gtk::AlertDialog::builder()
+    let dialog = gtk::MessageDialog::builder()
+        .transient_for(window)
         .modal(true)
-        .message(message)
-        .detail(detail)
-        .buttons(["OK"])
+        .message_type(gtk::MessageType::Info)
+        .text(message)
+        .secondary_text(detail)
         .build();
-    dialog.show(Some(window));
+    dialog.add_button("OK", gtk::ResponseType::Ok);
+    dialog.connect_response(|d, _| d.close());
+    dialog.show();
 }
 
 fn list_css(font_pt: f64) -> String {
@@ -136,7 +139,7 @@ fn build_ui(app: &gtk::Application) {
     list_box.set_activate_on_single_click(false);
 
     let css = gtk::CssProvider::new();
-    css.load_from_string(&list_css(11.5));
+    css.load_from_data(&list_css(11.5));
     if let Some(display) = gtk::gdk::Display::default() {
         gtk::style_context_add_provider_for_display(
             &display,
@@ -195,7 +198,6 @@ fn build_ui(app: &gtk::Application) {
                 if let Some(pix) = icons::os_pixbuf(&cfg.os_type, list_icon_size * 3) {
                     let texture = gtk::gdk::Texture::for_pixbuf(&pix);
                     let picture = gtk::Picture::for_paintable(&texture);
-                    picture.set_content_fit(gtk::ContentFit::Contain);
                     picture.set_size_request(list_icon_size, list_icon_size);
                     picture.set_valign(gtk::Align::Center);
                     row_box.append(&picture);
@@ -254,7 +256,7 @@ fn build_ui(app: &gtk::Application) {
                 let damped = damped.clamp(0.75, 1.8);
                 if (damped - ui_scale.get()).abs() > 0.04 {
                     ui_scale.set(damped);
-                    css.load_from_string(&list_css(11.5 * damped));
+                    css.load_from_data(&list_css(11.5 * damped));
                     refresh();
                 }
             }

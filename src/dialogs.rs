@@ -3,41 +3,44 @@ use crate::disks;
 use crate::hwslider::HwSlider;
 use crate::qemu;
 use gtk::prelude::*;
-use gtk::{gio, glib, Align, Orientation};
+use gtk::{glib, Align, Orientation};
 use std::cell::RefCell;
 use std::path::PathBuf;
 use std::rc::Rc;
 
 fn alert(parent: &gtk::Window, message: &str, detail: &str) {
-    let dialog = gtk::AlertDialog::builder()
+    let dialog = gtk::MessageDialog::builder()
+        .transient_for(parent)
         .modal(true)
-        .message(message)
-        .detail(detail)
-        .buttons(["OK"])
+        .message_type(gtk::MessageType::Info)
+        .text(message)
+        .secondary_text(detail)
         .build();
-    dialog.show(Some(parent));
+    dialog.add_button("OK", gtk::ResponseType::Ok);
+    dialog.connect_response(|d, _| d.close());
+    dialog.show();
 }
 
 fn confirm(parent: &gtk::Window, message: &str, detail: &str, confirm_label: &str, on_confirm: impl Fn() + 'static) {
-    let dialog = gtk::AlertDialog::builder()
+    let dialog = gtk::MessageDialog::builder()
+        .transient_for(parent)
         .modal(true)
-        .message(message)
-        .detail(detail)
-        .buttons(["Cancel", confirm_label])
-        .cancel_button(0)
-        .default_button(0)
+        .message_type(gtk::MessageType::Warning)
+        .text(message)
+        .secondary_text(detail)
         .build();
-    dialog.choose(
-        Some(parent),
-        gio::Cancellable::NONE,
-        move |result| {
-            if let Ok(idx) = result {
-                if idx == 1 {
-                    on_confirm();
-                }
-            }
-        },
-    );
+    dialog.add_button("Cancel", gtk::ResponseType::Cancel);
+    dialog.add_button(confirm_label, gtk::ResponseType::Accept);
+    if let Some(accept_btn) = dialog.widget_for_response(gtk::ResponseType::Accept) {
+        accept_btn.add_css_class("destructive-action");
+    }
+    dialog.connect_response(move |d, response| {
+        if response == gtk::ResponseType::Accept {
+            on_confirm();
+        }
+        d.close();
+    });
+    dialog.show();
 }
 
 fn labeled_row(label_text: &str) -> (gtk::Box, gtk::Entry) {
@@ -129,28 +132,33 @@ pub fn show_vm_dialog(
             let filter = gtk::FileFilter::new();
             filter.add_suffix("iso");
             filter.set_name(Some("ISO images"));
-            let filters = gio::ListStore::new::<gtk::FileFilter>();
-            filters.append(&filter);
 
-            let file_dialog = gtk::FileDialog::builder()
-                .title("Choose ISO")
-                .filters(&filters)
-                .build();
+            let file_chooser = gtk::FileChooserNative::new(
+                Some("Choose ISO"),
+                Some(&window),
+                gtk::FileChooserAction::Open,
+                Some("Open"),
+                Some("Cancel"),
+            );
+            file_chooser.add_filter(&filter);
 
             let iso_entry = iso_entry.clone();
             let os_dropdown = os_dropdown.clone();
-            file_dialog.open(Some(&window), gio::Cancellable::NONE, move |result| {
-                if let Ok(file) = result {
-                    if let Some(path) = file.path() {
-                        let path_str = path.to_string_lossy().to_string();
-                        iso_entry.set_text(&path_str);
-                        let guessed = config::guess_os_type(&path_str);
-                        if let Some(idx) = config::OS_TYPES.iter().position(|(k, _)| *k == guessed) {
-                            os_dropdown.set_selected(idx as u32);
+            file_chooser.connect_response(move |chooser, response| {
+                if response == gtk::ResponseType::Accept {
+                    if let Some(file) = chooser.file() {
+                        if let Some(path) = file.path() {
+                            let path_str = path.to_string_lossy().to_string();
+                            iso_entry.set_text(&path_str);
+                            let guessed = config::guess_os_type(&path_str);
+                            if let Some(idx) = config::OS_TYPES.iter().position(|(k, _)| *k == guessed) {
+                                os_dropdown.set_selected(idx as u32);
+                            }
                         }
                     }
                 }
             });
+            file_chooser.show();
         });
     }
 
